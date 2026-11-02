@@ -1,8 +1,8 @@
 /* 321健康新生活 — 離線快取 Service Worker
    更新 App 後，把下面的版本號改一下（例如 v17 → v18），
    使用者重新開啟時就會自動下載最新版。 */
-const CACHE = '321health-v24';
-const ASSETS = ['./', './index.html'];
+const CACHE = '321health-v25-gx1103';
+const ASSETS = ['./', './index.html', './gxr.js?v=gx1103', './gxa.js?v=gx1103'];
 
 // 安裝：預先快取首頁
 self.addEventListener('install', function (e) {
@@ -17,7 +17,7 @@ self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
-        if (k !== CACHE) { return caches.delete(k); }
+        if (k !== CACHE && k.indexOf('321health') === 0) { return caches.delete(k); }
       }));
     }).then(function () { return self.clients.claim(); })
   );
